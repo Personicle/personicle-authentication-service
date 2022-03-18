@@ -8,5 +8,8 @@ Run the server:
 ``` python authenticate.py ```
 
 **Endpoints**
-  - /authenticate
-    - headers: Authorization Bearer token
+  - Request
+    - /authenticate
+      - headers: Authorization Bearer token
+  - Response
+      ``` If authorized, {message:True}, 200 else "Unauthorized, 401"```
