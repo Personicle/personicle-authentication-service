@@ -6,3 +6,7 @@ Add ``` client_secrets.json ``` file in root folder.
 
 Run the server:
 ``` python authenticate.py ```
+
+**Endpoints**
+  - /authenticate
+    - headers: Authorization Bearer token
