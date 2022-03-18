@@ -12,4 +12,4 @@ Run the server:
     - /authenticate
       - headers: Authorization Bearer token
   - Response
-      ``` If authorized, {message:True}, 200 else "Unauthorized, 401"```
+      - ``` If authorized, {message:True}, 200 else "Unauthorized, 401" ```
