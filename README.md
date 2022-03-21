@@ -14,6 +14,6 @@ Run the server:
   - Response Example (If valid bearer token)
       - ``` {"message":true} ```
       
-  - Response Example (if invalid bearer token)
+  - Response Example (If invalid bearer token)
       - ``` Unauthorized ```
   
