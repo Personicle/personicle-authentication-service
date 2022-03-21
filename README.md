@@ -8,8 +8,12 @@ Run the server:
 ``` python authenticate.py ```
 
 **Endpoints**
-  - Request
-    - /authenticate
-      - headers: Authorization Bearer token
-  - Response
-      - ``` If authorized, {message:True}, 200 else "Unauthorized, 401" ```
+  - Request Example
+    - ```  curl -k https://20.121.8.101:5222/authenticate -H "Authorization: Bearer   eyJraWKi...5NQk" ```
+     
+  - Response Example (If valid bearer token)
+      - ``` {"message":true} ```
+      
+  - Response Example (if invalid bearer token)
+      - ``` Unauthorized ```
+  
