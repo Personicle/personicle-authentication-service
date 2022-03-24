@@ -1,6 +1,6 @@
 from distutils.log import debug
 from flask import Flask, jsonify, request
-from okta_authenticate.helpers import is_authorized 
+from okta_authenticate.helpers import is_authorized, is_user_valid
 from config import IDENTITY_SERVER_SETTINGS
 import os
 
