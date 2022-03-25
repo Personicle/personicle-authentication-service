@@ -16,7 +16,7 @@ def get_user_info(request):
     return real_user_id
 
 def is_authorized(request):
-    try:
+    try:    
         token = get_token(request)
         return is_access_token_valid(token, config["issuer"])
     except Exception:
