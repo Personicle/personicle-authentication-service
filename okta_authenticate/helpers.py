@@ -4,19 +4,20 @@ import requests
 from okta_jwt_verifier import AccessTokenVerifier
 loop = asyncio.get_event_loop()
 
+def get_token(request):
+    return request.headers.get("Authorization").split("Bearer ")[1]
 
-def is_user_valid(request):
-    user_id = request.args.get("user_id")
-    token = request.headers.get("Authorization").split("Bearer ")[1]
+def get_user_info(request):
+    token = get_token(request)
     headers = {'Authorization': 'Bearer ' + token}
-    user_info = requests.get("https://dev-01936861.okta.com/oauth2/default/v1/userinfo", headers=headers)
+    user_info = requests.get(config["userinfo_uri"], headers=headers)
     real_user_id = user_info.json()['sub']
     
-    return user_id == real_user_id
+    return real_user_id
 
 def is_authorized(request):
     try:
-        token = request.headers.get("Authorization").split("Bearer ")[1]
+        token = get_token(request)
         return is_access_token_valid(token, config["issuer"])
     except Exception:
         return False
