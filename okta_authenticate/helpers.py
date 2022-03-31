@@ -1,11 +1,23 @@
 import asyncio
 import json
 import requests
+import jwt
 from okta_jwt_verifier import AccessTokenVerifier
 loop = asyncio.get_event_loop()
 
 def get_token(request):
     return request.headers.get("Authorization").split("Bearer ")[1]
+
+def get_scopes(request):
+    token = get_token(request)
+    decoded_token = jwt.decode(token, options={"verify_signature": False},algorithms=["RS256"])
+    return decoded_token['scp']
+
+def match_scopes(requested_scopes, valid_scopes):
+    for scope in requested_scopes:
+        if scope not in valid_scopes:
+            return False
+    return True
 
 def get_user_info(request):
     token = get_token(request)
