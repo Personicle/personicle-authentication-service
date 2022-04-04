@@ -13,7 +13,7 @@ def authenticate():
     default_scopes = ['openid','email','profile']
     requested_scopes_list = requested_scopes.split(",") if requested_scopes is not None else default_scopes
     requested_scopes_list += default_scopes
-    # print(requested_scopes_list)
+    print(requested_scopes_list)
     if not is_authorized(request):
         return "Unauthorized", 401
 
