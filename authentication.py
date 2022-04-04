@@ -35,6 +35,6 @@ def index():
     return jsonify({"message": "Personicle authentication server"})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
     # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     # app.run(IDENTITY_SERVER_SETTINGS['HOST_URL'], port=IDENTITY_SERVER_SETTINGS['HOST_PORT'], debug=True)#, ssl_context='adhoc')
