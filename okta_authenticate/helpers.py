@@ -2,6 +2,7 @@ import asyncio
 import json
 import requests
 import jwt
+import os
 from okta_jwt_verifier import AccessTokenVerifier
 loop = asyncio.get_event_loop()
 
@@ -28,9 +29,9 @@ def get_user_info(request,audience):
     token = get_token(request)
     headers = {'Authorization': 'Bearer ' + token}
     if audience == "thirdparty":
-        user_info = requests.get(config["client_userinfo_uri"], headers=headers)
+        user_info = requests.get(os.environ['client_userinfo_uri'], headers=headers)
     else:
-        user_info = requests.get(config["userinfo_uri"], headers=headers)
+        user_info = requests.get(os.environ['userinfo_uri'], headers=headers)
     real_user_id = user_info.json()['sub']
     
     return real_user_id
@@ -41,9 +42,9 @@ def is_authorized(request):
         audience  = get_audience(request)
 
         if audience == 'thirdparty':
-            return is_access_token_valid(token, config["client_issuer"],audience)
+            return is_access_token_valid(token, os.environ['client_issuer'],audience)
 
-        return is_access_token_valid(token, config["issuer"],audience)
+        return is_access_token_valid(token, os.environ['issuer'],audience)
     except Exception:
         return False
 
@@ -57,11 +58,11 @@ def is_access_token_valid(token, issuer,audience):
         return False
 
 
-def load_config(fname='client_secrets.json'):
-    config = None
-    with open(fname) as f:
-        config = json.load(f)
-    return config
+# def load_config(fname='client_secrets.json'):
+#     config = None
+#     with open(fname) as f:
+#         config = json.load(f)
+#     return config
 
 
-config = load_config()
+# config = load_config()
