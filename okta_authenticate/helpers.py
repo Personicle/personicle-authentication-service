@@ -29,9 +29,9 @@ def get_user_info(request,audience):
     token = get_token(request)
     headers = {'Authorization': 'Bearer ' + token}
     if audience == "thirdparty":
-        user_info = requests.get(os.environ['client_userinfo_uri'], headers=headers)
+        user_info = requests.get(os.environ['CLIENT_USERINFO_URI'], headers=headers)
     else:
-        user_info = requests.get(os.environ['userinfo_uri'], headers=headers)
+        user_info = requests.get(os.environ['USERINFO_URI'], headers=headers)
     real_user_id = user_info.json()['sub']
     
     return real_user_id
@@ -42,9 +42,9 @@ def is_authorized(request):
         audience  = get_audience(request)
 
         if audience == 'thirdparty':
-            return is_access_token_valid(token, os.environ['client_issuer'],audience)
+            return is_access_token_valid(token, os.environ['CLIENT_ISSUER'],audience)
 
-        return is_access_token_valid(token, os.environ['issuer'],audience)
+        return is_access_token_valid(token, os.environ['ISSUER'],audience)
     except Exception:
         return False
 
