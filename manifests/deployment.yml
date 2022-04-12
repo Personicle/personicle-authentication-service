@@ -1,19 +1,54 @@
-apiVersion : apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "personiclecluster-b0d8"
+  name: personicle-auth-service
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: "personiclecluster-b0d8"
+      app: personicle-auth-service
   template:
     metadata:
       labels:
-        app: "personiclecluster-b0d8"
+        app: personicle-auth-service
     spec:
       containers:
-        - name: "personiclecluster-b0d8"
-          image: "personicleauth.azurecr.io/personiclecluster"
-          ports:
-          - containerPort: 5000
+      - name: personicle-auth-service
+        image: personicleauth.azurecr.io/personicle-auth-service
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: CLIENT_USERINFO_URI
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: CLIENT_USERINFO_URI
+        - name: USER_INFO_URI
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: USER_INFO_URI
+        - name: CLIENT_ISSUER
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: CLIENT_ISSUER
+        - name: ISSUER
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: ISSUER
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: personicle-auth-service
+spec:
+  ports:
+  - port: 5000
+    name: auth-service
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: personicle-auth-service
