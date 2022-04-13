@@ -31,7 +31,7 @@ def get_user_info(request,audience):
     if audience == "thirdparty":
         user_info = requests.get(os.environ['CLIENT_USERINFO_URI'], headers=headers)
     else:
-        user_info = requests.get(os.environ['USERINFO_URI'], headers=headers)
+        user_info = requests.get(os.environ['USER_INFO_URI'], headers=headers)
     real_user_id = user_info.json()['sub']
     
     return real_user_id
