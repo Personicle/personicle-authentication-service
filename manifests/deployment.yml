@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: personicle-auth-service
-        image: personicleauth.azurecr.io/personicle-auth-service
+        image: personicleservices.azurecr.io/personicle-authentication-service
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -22,22 +22,22 @@ spec:
         - name: CLIENT_USERINFO_URI
           valueFrom:
             secretKeyRef:
-              name: dbsecret
+              name: secrets
               key: CLIENT_USERINFO_URI
         - name: USER_INFO_URI
           valueFrom:
             secretKeyRef:
-              name: dbsecret
+              name: secrets
               key: USER_INFO_URI
         - name: CLIENT_ISSUER
           valueFrom:
             secretKeyRef:
-              name: dbsecret
+              name: secrets
               key: CLIENT_ISSUER
         - name: ISSUER
           valueFrom:
             secretKeyRef:
-              name: dbsecret
+              name: secrets
               key: ISSUER
 ---
 apiVersion: v1
