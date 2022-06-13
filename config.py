@@ -33,7 +33,7 @@ else:
             'NAME': os.environ.get('CREDENTIALS_DB_NAME'),
         }
         OKTA_TOKENS = {
-            'GET_USER_GROUP_TONE': os.environ.get('GET_USER_GROUP_TOKEN')
+            'GET_USER_GROUP_TOKEN': os.environ.get('GET_USER_GROUP_TOKEN')
         }
         OKTA_ENDPOINTS = {
             'USER_ENDPOINT': os.environ.get('USER_ENDPOINT')
