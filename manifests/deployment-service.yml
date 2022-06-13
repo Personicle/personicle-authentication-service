@@ -42,27 +42,27 @@ spec:
         - name: CREDENTIALS_DB_USER
           valueFrom:
             secretKeyRef:
-              name: dbsecret
+              name: secrets
               key: CREDENTIALS_DB_USER
         - name: CREDENTIALS_DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: dbsecret
+              name: secrets
               key: CREDENTIALS_DB_PASSWORD
         - name: CREDENTIALS_DB_HOST
           valueFrom:
             secretKeyRef:
-              name: dbsecret
+              name: secrets
               key: CREDENTIALS_DB_HOST
         - name: CREDENTIALS_DB_NAME
           valueFrom:
             secretKeyRef:
-              name: dbsecret
+              name: secrets
               key: CREDENTIALS_DB_NAME
         - name: GET_USER_GROUP_TOKEN
           valueFrom:
             secretKeyRef:
-              name: dbsecret
+              name: secrets
               key: GET_USER_GROUP_TOKEN
         - name: USER_ENDPOINT
           valueFrom:
@@ -72,7 +72,7 @@ spec:
         - name: PHYSICIAN_GROUP
           valueFrom:
             secretKeyRef:
-              name: dbsecret
+              name: secrets
               key: PHYSICIAN_GROUP
         
         
