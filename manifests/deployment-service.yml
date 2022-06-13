@@ -67,7 +67,7 @@ spec:
         - name: USER_ENDPOINT
           valueFrom:
             secretKeyRef:
-              name: dbsecret
+              name: secrets
               key: USER_ENDPOINT
         - name: PHYSICIAN_GROUP
           valueFrom:
