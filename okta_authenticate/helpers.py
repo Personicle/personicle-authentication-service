@@ -19,6 +19,21 @@ def get_scopes(request):
     decoded_token = jwt.decode(token, options={"verify_signature": False},algorithms=["RS256"])
     return decoded_token['scp']
 
+def is_user_physician(request,user_id):
+     # headers = {
+    #     "Authorizatoin": f"Bearer {}"
+    # }
+ 
+    token_valid = is_authorized(request)
+    if token_valid:
+        headers = {'Authorization': 'SSWS 00JRLUd-fyWojjhDad1Ask3S3DssMHR2T2nAOg1ogk'}
+        
+        res = requests.get(f'https://dev-01936861.okta.com/api/v1/users/{user_id}/groups', headers=headers)
+        for g in res.json():
+            if g['id'] == "00g59rl1q8EBUu7qM5d7":
+                return True
+        
+    return False
 def match_scopes(requested_scopes, valid_scopes):
     for scope in requested_scopes:
         if scope not in valid_scopes:
@@ -40,11 +55,13 @@ def is_authorized(request):
     try:    
         token = get_token(request)
         audience  = get_audience(request)
-
+        
         if audience == 'thirdparty':
             return is_access_token_valid(token, os.environ['CLIENT_ISSUER'],audience)
+        # print(audience)
+        # return is_access_token_valid(token, os.environ['ISSUER'],audience)
+        return is_access_token_valid(token, "https://dev-01936861.okta.com/oauth2/default",audience)
 
-        return is_access_token_valid(token, os.environ['ISSUER'],audience)
     except Exception:
         return False
 

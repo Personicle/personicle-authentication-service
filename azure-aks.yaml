@@ -1,0 +1,33 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: personicle-auth-service
+# spec:
+#   replicas: 2
+#   selector:
+#     matchLabels:
+#       app: personicle-authentication-service
+#   template:
+#     metadata:
+#       labels:
+#         app: personicle-authentication-service
+#     spec:
+#       containers:
+#       - name: personicle-authentication-service
+#         image: personicleauth.azurecr.io/authservice:5
+#         imagePullPolicy: Always
+#         ports:
+#         - containerPort: 5000
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: personicle-authentication-service-svc
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - protocol: TCP
+#     port: 5000
+#     targetPort: 5000
+#   selector:
+#     app: personicle-authentication-service

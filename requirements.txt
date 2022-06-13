@@ -31,3 +31,5 @@ urllib3==1.26.9
 uvicorn==0.17.6
 Werkzeug==2.0.3
 yarl==1.7.2
+sqlalchemy
+psycopg2-binary
