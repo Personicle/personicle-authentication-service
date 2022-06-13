@@ -4,6 +4,7 @@ import requests
 import jwt
 import os
 from okta_jwt_verifier import AccessTokenVerifier
+from config import OKTA_TOKENS, OKTA_ENDPOINTS, OKTA_GROUPS
 loop = asyncio.get_event_loop()
 
 def get_token(request):
@@ -20,17 +21,14 @@ def get_scopes(request):
     return decoded_token['scp']
 
 def is_user_physician(request,user_id):
-     # headers = {
-    #     "Authorizatoin": f"Bearer {}"
-    # }
  
     token_valid = is_authorized(request)
     if token_valid:
-        headers = {'Authorization': 'SSWS 00JRLUd-fyWojjhDad1Ask3S3DssMHR2T2nAOg1ogk'}
+        headers = {'Authorization': f"{OKTA_TOKENS['GET_USER_GROUP_TOKEN']}"}
         
-        res = requests.get(f'https://dev-01936861.okta.com/api/v1/users/{user_id}/groups', headers=headers)
+        res = requests.get(f"{OKTA_ENDPOINTS['USER_ENDPOINT']}/{user_id}/groups", headers=headers)
         for g in res.json():
-            if g['id'] == "00g59rl1q8EBUu7qM5d7":
+            if g['id'] == f"{OKTA_GROUPS['PHYSICIAN_GROUP']}":
                 return True
         
     return False
@@ -58,9 +56,9 @@ def is_authorized(request):
         
         if audience == 'thirdparty':
             return is_access_token_valid(token, os.environ['CLIENT_ISSUER'],audience)
-        # print(audience)
-        # return is_access_token_valid(token, os.environ['ISSUER'],audience)
-        return is_access_token_valid(token, "https://dev-01936861.okta.com/oauth2/default",audience)
+        
+        return is_access_token_valid(token, os.environ['ISSUER'],audience)
+       
 
     except Exception:
         return False

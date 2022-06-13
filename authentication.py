@@ -36,14 +36,14 @@ def authenticate():
     uid = request.args.get('user_id')
     if uid == "":
      uid = None
-    
+   
     if not is_authorized(request):
         return "Unauthorized", 401
     # check if access token belongs to physician
     audience = get_audience(request)
     user_id = get_user_info(request,audience)
     is_physician = is_user_physician(request,user_id)
-    
+   
     if is_physician and uid != None and uid!=user_id:
         #check if user_id(physician) has access to uid(patient) data
         mapping_exists = session.query(exists().where((physician_users.c.user_user_id == uid) & (physician_users.c.physician_user_id == user_id))).scalar()

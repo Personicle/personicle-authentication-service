@@ -59,6 +59,22 @@ spec:
             secretKeyRef:
               name: dbsecret
               key: CREDENTIALS_DB_NAME
+        - name: GET_USER_GROUP_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: GET_USER_GROUP_TOKEN
+        - name: USER_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: USER_ENDPOINT
+        - name: PHYSICIAN_GROUP
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: PHYSICIAN_GROUP
+        
         
         
 ---

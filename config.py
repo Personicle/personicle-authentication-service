@@ -32,6 +32,16 @@ else:
             'HOST': os.environ.get('CREDENTIALS_DB_HOST'),
             'NAME': os.environ.get('CREDENTIALS_DB_NAME'),
         }
+        OKTA_TOKENS = {
+            'GET_USER_GROUP_TONE': os.environ.get('GET_USER_GROUP_TOKEN')
+        }
+        OKTA_ENDPOINTS = {
+            'USER_ENDPOINT': os.environ.get('USER_ENDPOINT')
+        }
+        OKTA_GROUPS = {
+            'PHYSICIAN_GROUP':  os.environ.get('PHYSICIAN_GROUP')
+        }
+
 
     except KeyError as e:
         print("failed to create configs for the application")
