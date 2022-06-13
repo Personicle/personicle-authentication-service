@@ -74,6 +74,11 @@ spec:
             secretKeyRef:
               name: secrets
               key: PHYSICIAN_GROUP
+        - name: INGESTION_PROD
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: INGESTION_PROD
         
         
         
