@@ -46,10 +46,10 @@ def authenticate():
    
     if is_physician and uid != None and uid!=user_id:
         #check if user_id(physician) has access to uid(patient) data
-         try:
+        try:
             mapping_exists = session.query(exists().where((physician_users.c.user_user_id == uid) & (physician_users.c.physician_user_id == user_id))).scalar()
             session.commit()
-         except:
+        except:
             session.rollback()
         
         if mapping_exists:
