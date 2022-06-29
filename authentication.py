@@ -46,7 +46,12 @@ def authenticate():
    
     if is_physician and uid != None and uid!=user_id:
         #check if user_id(physician) has access to uid(patient) data
-        mapping_exists = session.query(exists().where((physician_users.c.user_user_id == uid) & (physician_users.c.physician_user_id == user_id))).scalar()
+         try:
+            mapping_exists = session.query(exists().where((physician_users.c.user_user_id == uid) & (physician_users.c.physician_user_id == user_id))).scalar()
+            session.commit()
+        except:
+            session.rollback()
+        
         if mapping_exists:
             print(f"physician authorized to access data for user {uid}")
             return jsonify({"message": True, "user_id": uid}) ,200  # return user id for specifed patient
